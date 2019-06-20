@@ -69,7 +69,7 @@ public class UserController extends BaseController {
 			cookie.setPath("/");
 			response.addCookie(cookie);
 			getSession().setAttribute(Const.LOGIN_SESSION_KEY, loginUser);
-			String preUrl = "/";
+			String preUrl = "/home";
 			return new ResponseData(ExceptionMsg.SUCCESS,preUrl);
 		} catch (Exception e) {
 			logger.error("login failed", e);
