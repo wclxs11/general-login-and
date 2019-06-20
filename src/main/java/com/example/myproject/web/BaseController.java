@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.example.myproject.comm.filter.Const;
+import com.example.myproject.comm.Const;
 import com.example.myproject.domain.User;
 import com.example.myproject.domain.result.ExceptionMsg;
 import com.example.myproject.domain.result.Response;

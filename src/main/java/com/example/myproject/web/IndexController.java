@@ -1,10 +1,14 @@
 package com.example.myproject.web;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.example.myproject.comm.Const;
 import com.example.myproject.comm.aop.LoggerManage;
 import com.example.myproject.domain.User;
 
@@ -48,6 +52,18 @@ public class IndexController extends BaseController{
 	public String home() {
 		return "home";
 	}
+	
+	@RequestMapping(value="/logout",method=RequestMethod.GET)
+	@LoggerManage(description="退出登陆")
+	public String logout(HttpServletResponse response,Model model) {
+		getSession().removeAttribute(Const.LOGIN_SESSION_KEY);
+		getSession().removeAttribute(Const.LAST_REFERER);
+		Cookie cookie = new Cookie(Const.LOGIN_SESSION_KEY,"");
+		cookie.setMaxAge(0);
+		cookie.setPath("/");
+		return "index";
+	}
+	
 	
 	@RequestMapping(value="/forgotPassword",method=RequestMethod.GET)
 	@LoggerManage(description="忘记密码页面")

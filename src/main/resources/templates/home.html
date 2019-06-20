@@ -1,8 +1,14 @@
 <html xmlns:th="http://www.thymeleaf.org" layout:decorate="layout">
-  <head></head>
+  <head th:include="layout :: htmlhead" th:with="title='favorites'"></head>
   <body>
+      <section layout:fragment="content">
+      </section>
+      	   <div class="p-lg text-center">
+	      <a class="btn btn-danger btn-block" href="/logout">
+	         <strong>注销</strong>
+	      </a>
+	   </div>
   </body>
   <script type='text/javascript'>
-     window.location.href='index'
  </script>
 </html>

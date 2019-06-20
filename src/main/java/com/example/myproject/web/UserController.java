@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.myproject.comm.Const;
 import com.example.myproject.comm.aop.LoggerManage;
-import com.example.myproject.comm.filter.Const;
 import com.example.myproject.domain.User;
 import com.example.myproject.domain.result.ExceptionMsg;
 import com.example.myproject.domain.result.Response;
@@ -59,9 +59,6 @@ public class UserController extends BaseController {
 			if (loginUser == null) {
 				return new ResponseData(ExceptionMsg.LoginNameNotExists);
 			} else if (!loginUser.getPassword().equals(getPwd(user.getPassword()))) {
-				System.out.print(loginUser.getPassword()+"\n");
-				System.out.print(user.getPassword()+"\n");
-				System.out.print(getPwd(user.getPassword()));
 				return new ResponseData(ExceptionMsg.LoginNameOrPassWordError);
 			}
 			Cookie cookie = new Cookie(Const.LOGIN_SESSION_KEY, cookieSign(loginUser.getId().toString()));
@@ -80,12 +77,14 @@ public class UserController extends BaseController {
 
 	@RequestMapping(value = "/regist", method = RequestMethod.POST)
 	@LoggerManage(description = "注册")
-	public ResponseData create(User user) {
+	public Response create(User user) {
 		try {
-			if (userRepository.findByEmail(user.getEmail()) != null) {
-				return new ResponseData(ExceptionMsg.EmailUsed);
+			User registUser = userRepository.findByEmail(user.getEmail());
+			if (registUser!= null) {
+				return result(ExceptionMsg.EmailUsed);
 			}
-			if (userRepository.findByUserName(user.getUserName()) != null) {
+			User userNameUser = userRepository.findByUserName(user.getUserName());
+			if (userNameUser != null) {
 				return new ResponseData(ExceptionMsg.UserNameUsed);
 			}
 			user.setPassword(getPwd(user.getPassword()));
@@ -101,9 +100,9 @@ public class UserController extends BaseController {
 			
 		} catch (Exception e) {
 			logger.error("create user failed", e);
-			return new ResponseData(ExceptionMsg.FAILED);
+			return result(ExceptionMsg.FAILED);
 		}
-		return new ResponseData(ExceptionMsg.SUCCESS);
+		return result();
 	}
 	
 //	@RequestMapping(value = "/getConfig",method = RequestMethod.POST)
@@ -179,7 +178,6 @@ public class UserController extends BaseController {
             	 return result(ExceptionMsg.LinkOutdated);
             }
             
-            System.out.println(newpwd);
             userRepository.setNewPassword(getPwd(newpwd), email);
             user.setPassword(getPwd(newpwd));
 		} catch (Exception e) {
