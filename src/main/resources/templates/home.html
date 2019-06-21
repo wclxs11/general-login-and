@@ -1,14 +1,12 @@
-<html xmlns:th="http://www.thymeleaf.org" layout:decorate="layout">
-  <head th:include="layout :: htmlhead" th:with="title='favorites'"></head>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout">
+  <head th:include="layout :: htmlhead" th:with="title='yoyo'"></head>
   <body>
-      <section layout:fragment="content">
-      </section>
-      	   <div class="p-lg text-center">
+      <div layout:fragment="content">
+        	   <div class="p-lg text-center">
 	      <a class="btn btn-danger btn-block" href="/logout">
 	         <strong>注销</strong>
 	      </a>
 	   </div>
+      </div>      
   </body>
-  <script type='text/javascript'>
- </script>
 </html>

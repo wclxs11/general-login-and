@@ -61,6 +61,7 @@ public class IndexController extends BaseController{
 		Cookie cookie = new Cookie(Const.LOGIN_SESSION_KEY,"");
 		cookie.setMaxAge(0);
 		cookie.setPath("/");
+		response.addCookie(cookie);
 		return "index";
 	}
 	
