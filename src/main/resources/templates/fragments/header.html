@@ -24,6 +24,12 @@
 
             <ul class="nav navbar-nav navbar-right">
                <li>
+                  <a title="个人头像"  >
+                     <img class="zoomimage" th:src="${user.profilePicture == null?'img/potrait.png':user.profilePicture}"/>
+                  </a>
+               </li>
+                
+               <li>
                   <a title="搜索" data-search-open="" href="#">
                      <em class="icon-magnifier"></em>
                   </a>

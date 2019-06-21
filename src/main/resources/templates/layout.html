@@ -17,18 +17,23 @@
   	<link rel="stylesheet" th:href="@{/media/css/bootstrap.css}" />
     <link rel="stylesheet" th:href="@{/media/css/app.css}" />
     <link rel="stylesheet" th:href="@{/media/css/theme-i.css}" />
+    <link rel="stylesheet" th:href="@{/css/home.css}" />
   </head>
+
 
   <body class="layout-fixed">
     <div th:fragment="navbar"  class="wrapper"  role="navigation">
-				<div th:replace="fragments/header :: header">header</div>
+		<div th:replace="fragments/header :: header">header</div>
 		<div th:replace="fragments/left :: left">left</div>
 		<div th:replace="fragments/sidebar :: sidebar">sidebar</div>
 		<div layout:fragment="content" id="content" ></div>
-		<div th:replace="fragments/footer :: footer">footer</div> 
-		
+		<div th:replace="fragments/footer :: footer">footer</div> 		
     </div>
-
     </div>
+    <script th:inline="javascript">
+	/*<![CDATA[*/
+			  locationUrl('/tool','tool');
+	/*]]>*/
+	</script>
 </body>
 </html>

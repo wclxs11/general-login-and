@@ -30,7 +30,8 @@ public class IndexController extends BaseController{
 	
 	@RequestMapping(value="/",method=RequestMethod.GET)
     @LoggerManage(description="登陆后首页")
-	public String home(Model model){		
+	public String home(Model model){
+		model.addAttribute("user", getUser());
 		return "home";
 	}
 	
@@ -49,7 +50,11 @@ public class IndexController extends BaseController{
 	
 	@RequestMapping(value="/home",method=RequestMethod.GET)
 	@LoggerManage(description="主页")
-	public String home() {
+	public String homeDirect(Model model) {
+		User user = super.getUser();
+		if(null!=user){
+			model.addAttribute("user", user);
+		}
 		return "home";
 	}
 	

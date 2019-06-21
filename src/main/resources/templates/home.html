@@ -1,8 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout">
-  <head th:include="layout :: htmlhead" th:with="title='yoyo'"></head>
+  <head th:include="layout :: htmlhead" th:with="title='yoyo'">
   </head>
   <body>
-    <section layout:fragment="content"></section>
+
+    <section layout:fragment="content">
+      
+    </section>
+      <div id="container"></div> 
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=01d5c84661f29447c9a8936857a781d4"></script> 
+    <script type='text/javascript'>
+        var map = new AMap.Map('container', {
+        zoom:11,//级别
+        center: [116.397428, 39.90923],
+        viewMode:'3D'
+           });
+    </script>
 </body>
 </html>

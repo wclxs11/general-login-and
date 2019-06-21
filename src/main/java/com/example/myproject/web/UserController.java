@@ -90,7 +90,7 @@ public class UserController extends BaseController {
 			user.setPassword(getPwd(user.getPassword()));
 			user.setCreateTime(DateUtils.getCurrentTime());
 			user.setLastModifyTime(DateUtils.getCurrentTime());
-			user.setProfilePicture("img/favicon.png");
+			user.setProfilePicture("img/potrait.png");
 			userRepository.save(user);
 			// 添加默认收藏夹
 			//Favorites favorites = favoritesService.saveFavorites(user.getId(), "未读列表");
