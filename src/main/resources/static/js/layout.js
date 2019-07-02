@@ -61,6 +61,7 @@ function createParty() {
 				$("#createPartyBtn").attr("data-dismiss","modal");
 				$("#createPartyForm")[0].reset();
 				toastr.success('聚会创建成功！', '操作成功');
+				window.location.reload()				
   	    	}else{
   	    		$("#partyInformationError").show();
   	    		$("#partyInformationError").html(data.rspMsg);

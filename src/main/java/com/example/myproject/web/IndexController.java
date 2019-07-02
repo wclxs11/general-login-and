@@ -1,8 +1,11 @@
 package com.example.myproject.web;
 
+import java.util.List;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,14 +13,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.myproject.comm.Const;
 import com.example.myproject.comm.aop.LoggerManage;
+import com.example.myproject.domain.Party;
 import com.example.myproject.domain.User;
+import com.example.myproject.repository.PartyRepository;
+import com.example.myproject.repository.UserRepository;
 
 
 //页面索引跳转控制器
 @Controller
 @RequestMapping("/")
 public class IndexController extends BaseController{
-   	
+	@Autowired
+    private PartyRepository partyRepository;
+	
 	@RequestMapping(value="/index",method=RequestMethod.GET)
     @LoggerManage(description="首页")
 	public String index(Model model){
@@ -31,7 +39,9 @@ public class IndexController extends BaseController{
 	@RequestMapping(value="/",method=RequestMethod.GET)
     @LoggerManage(description="登陆后首页")
 	public String home(Model model){
+		List<Party> partyList = partyRepository.findAll();
 		model.addAttribute("user", getUser());
+		model.addAttribute("partyList",partyList);
 		return "home";
 	}
 	
@@ -52,9 +62,11 @@ public class IndexController extends BaseController{
 	@LoggerManage(description="主页")
 	public String homeDirect(Model model) {
 		User user = super.getUser();
+		List<Party> partyList = partyRepository.findAll();
 		if(null!=user){
 			model.addAttribute("user", user);
 		}
+		model.addAttribute("partyList",partyList);
 		return "home";
 	}
 	

@@ -29,8 +29,7 @@
 		<div th:replace="fragments/header :: header">header</div>
 		<div th:replace="fragments/left :: left">left</div>
 		<div th:replace="fragments/sidebar :: sidebar">sidebar</div>
-		<div layout:fragment="content" id="content"></div>
-		<div id=mapContainer></div>
+		<div layout:fragment="content" id="content"></div>		
 		<div th:replace="fragments/footer :: footer">footer</div>
 	</div>
 	<div th:replace="fragments/alert :: alert">alert</div>
@@ -47,13 +46,5 @@
 	<script th:src="@{/vendor/parsleyjs/dist/parsley.min.js}"></script>
 	<script th:src="@{/vendor/toastr/toastr.min.js}"></script>
 	
-	<script
-		src="https://webapi.amap.com/maps?v=1.4.15&key=01d5c84661f29447c9a8936857a781d4"></script>
-	<script type='text/javascript'>
-        var map = new AMap.Map('mapContainer', {
-           center:[117.000923,36.675807],
-           zoom:11
-        });
-    </script>
 </body>
 </html>

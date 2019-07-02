@@ -1,6 +1,7 @@
 package com.example.myproject.web;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -232,7 +234,7 @@ public class UserController extends BaseController {
 	 */
 	@RequestMapping(value = "/createParty", method = RequestMethod.POST)
 	@LoggerManage(description="创建聚会")
-	public Response createParty(String partyStartTime, String partyEndTime, 
+	public Response createParty(Model model,String partyStartTime, String partyEndTime, 
 			                       String partyAddress,String headCount, String partyType,
 			                       String estimateCost, String partyDescription) {
 		try {
@@ -248,6 +250,9 @@ public class UserController extends BaseController {
             party.setUser(userRepository.findByUserName(user.getUserName()));
             partyRepository.save(party);
 			user.addToPartyCreatedList(party);
+			List<Party> partyList = partyRepository.findAll();
+			model.addAttribute("partyList", partyList);
+			getSession().setAttribute(Const.LOGIN_SESSION_KEY, user);
 		} catch (Exception e) {
 			// TODO: handle exception
 			logger.error("createParty failed, ", e);
