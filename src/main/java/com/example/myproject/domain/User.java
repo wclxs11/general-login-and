@@ -1,12 +1,16 @@
 package com.example.myproject.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class User extends Entities implements Serializable{
@@ -37,7 +41,10 @@ public class User extends Entities implements Serializable{
     private String validataCode;
     @Column(nullable=true)
     private String backgroundPicture;
-    
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL})
+    private List<Party> partyCreatedList = new ArrayList<>();
+   /* @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL})
+    private List<Party> partyCanceledList = new ArrayList<>();*/
     public User() {
 		super();
 	}
@@ -113,4 +120,23 @@ public class User extends Entities implements Serializable{
 	public void setBackgroundPicture(String backgroundPicture) {
 		this.backgroundPicture = backgroundPicture;
 	}
+	public List<Party> getPartyCreatedList(){
+		return partyCreatedList;
+	}
+	public void setPartyCreatedList(List<Party> partyCreatedList){
+		this.partyCreatedList = partyCreatedList;
+	}
+	public void addToPartyCreatedList(Party party){
+		partyCreatedList.add(party);
+	}
+	
+	/*public List<Party> getPartyCanceledList(){
+		return partyCanceledList;
+	}
+	public void setPartyCanceledList(List<Party> partyCanceledList){
+		this.partyCanceledList = partyCanceledList;
+	}
+	public void addToPartyCanceledList(Party party){
+		partyCanceledList.add(party);
+	}	*/
 }

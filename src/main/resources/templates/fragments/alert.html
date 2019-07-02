@@ -140,6 +140,63 @@
          </div>
       </div>
    </div>
+   <div id="modal-CreateParty" class="modal fade">
+      <div class="modal-dialog">
+         <div class="modal-content">
+            <div class="modal-header">
+               <button type="button" data-dismiss="modal" class="close">
+                  <span>&times;</span>
+               </button>
+               <h4 class="modal-title">创建聚会信息</h4>
+            </div>
+            <form id="createPartyForm" data-parsley-validate="true" onsubmit="return false">
+	            <div class="modal-body">
+	               <div class="alert alert-danger text-center" id="partyInformationError">聚会信息输入错误</div>
+	               <div class="form-group has-feedback">
+	                  <label >开始时间</label>
+	                  <input id="partyStartTime" name="partyStartTime" type="date" placeholder="开始时间" class="form-control" v-model="text" required="required"/>
+	               </div>
+	                <div class="form-group has-feedback">
+	                  <label >结束时间</label>
+	                  <input id="partyEndTime" name="partyEndTime" type="date" placeholder="结束时间" class="form-control" v-model="text" required="required"/>
+	               </div>
+	               <div class="form-group has-feedback">
+	                  <label >地点</label>
+	                  <input id="partyAddress" name="partyAddress" type="text" placeholder="地点" class="form-control" v-model="text" required="required"/>
+	               </div>
+	               <div class="form-group has-feedback">
+	                  <label >人数</label>
+	                  <input id="headCount" name="headCount" type="text" placeholder="人数" class="form-control" v-model="text" required="required"/>
+	               </div>
+	               <div class="form-group has-feedback">
+	                  <label>聚会类型</label>
+	                  <select id="partyType" name="partyType" type="text" class="form-control" v-model="text" required="required">
+	                   <option value="0" selected> --请选择聚会类型--</option>
+	                   <option value="1"> 约饭</option>
+                       <option value="2"> 约球</option>
+                       <option value="3"> 约KTV</option>
+                       <option value="4"> 约开黑</option>
+                       <option value="5"> 其他</option>
+                       </select>                  
+	               </div>
+	                <div class="form-group has-feedback">
+	                  <label>预计花费</label>
+	                  <input id="estimateCost" name="estimateCost" type="text" placeholder="预计花费" class="form-control" v-model="text" required="required"/>
+	               </div>
+	               <div class="form-group has-feedback">
+	                  <label >详细信息</label>
+	                  <textarea id="partyDescription" name="partyDescription" type="text" placeholder="详细信息" cols="30" rows="5" class="form-control" v-model="text" required="required"></textarea>
+	               </div>
+	            </div>
+	            <div class="modal-footer">
+	               <button type="submit" id="createPartyBtn" class="btn btn-block btn-primary mt-lg" onclick="createParty();">发起聚会</button>
+	            </div>
+            </form>
+         </div>
+      </div>
+   </div>
+   
+   
    <div id="modal-changeDescription" class="modal fade">
       <div class="modal-dialog">
          <div class="modal-content">

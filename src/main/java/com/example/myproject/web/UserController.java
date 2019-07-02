@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.myproject.comm.Const;
 import com.example.myproject.comm.aop.LoggerManage;
+import com.example.myproject.domain.Party;
 import com.example.myproject.domain.User;
 import com.example.myproject.domain.result.ExceptionMsg;
 import com.example.myproject.domain.result.Response;
 import com.example.myproject.domain.result.ResponseData;
+import com.example.myproject.repository.PartyRepository;
 import com.example.myproject.repository.UserRepository;
 import com.example.myproject.utils.DateUtils;
 import com.example.myproject.utils.MD5Util;
@@ -32,7 +34,8 @@ import com.example.myproject.utils.MessageUtil;
 public class UserController extends BaseController {
 	@Autowired
 	private UserRepository userRepository;
-	
+	@Autowired
+	private PartyRepository partyRepository;	
 	@Resource
     private JavaMailSender mailSender;
 	@Value("${spring.mail.username}")
@@ -216,7 +219,42 @@ public class UserController extends BaseController {
 		return result();
 	}
 	
-	
+	/**
+	 * 创建聚会
+	 * @param partyStartTime
+	 * @param partyEndTime
+	 * @param partyAddress
+	 * @param headCount
+	 * @param partyType
+	 * @param estimateCost
+	 * @param partyDescription
+	 * @return
+	 */
+	@RequestMapping(value = "/createParty", method = RequestMethod.POST)
+	@LoggerManage(description="创建聚会")
+	public Response createParty(String partyStartTime, String partyEndTime, 
+			                       String partyAddress,String headCount, String partyType,
+			                       String estimateCost, String partyDescription) {
+		try {
+			User user = getUser();
+			Party party = new Party();
+            party.setPartyStartTime(partyStartTime);
+            party.setPartyEndTime(partyEndTime);
+            party.setPartyAddress(partyAddress);
+            party.setHeadCount(headCount);
+            party.setPartyType(partyType);
+            party.setEstimateCost(estimateCost);
+            party.setPartyDescription(partyDescription);
+            party.setUser(userRepository.findByUserName(user.getUserName()));
+            partyRepository.save(party);
+			user.addToPartyCreatedList(party);
+		} catch (Exception e) {
+			// TODO: handle exception
+			logger.error("createParty failed, ", e);
+			return result(ExceptionMsg.FAILED);
+		}
+		return result();
+	}
 	
 	
 }
