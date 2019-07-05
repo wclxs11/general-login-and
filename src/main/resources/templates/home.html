@@ -4,23 +4,69 @@
   </head>
   <body>
     <section layout:fragment="content">  
-    <div>
+<!--     <div>
             <table id="partyList" border="1">  
               <tr>  
                 <th>发起人</th>  
                 <th>地点</th>  
                 <th>开始时间</th>
-                <th>结束时间</th>   
+                <th>结束时间</th>
+                <th>聚会类型</th>
+                <th>人数</th>
+                <th>预计花费</th>
+                <th>描述</th>             
               </tr>  
               <tr  th:each="party,partyStat : ${partyList}">  
                 <td th:text="${party.user.userName}">yoyo</td>  
                 <td th:text="${party.partyAddress}">wuhan</td>  
                 <td th:text="${party.partyStartTime}">1</td>  
-                <td th:text="${party.partyEndTime}">2</td> 
+                <td th:text="${party.partyEndTime}">2</td>
+                <td th:text="${party.partyType}">type</td>
+                <td th:text="${party.headCount}">10</td>
+                <td th:text="${party.estimateCost}">100</td>
+                <td th:text="${party.partyDescription}">haha</td>  
               </tr>  
             </table>     
-    </div>       
-       <div id=mapContainer></div>	            
+    </div>  -->
+    <!-- <div id="mapContainer"></div> -->
+<!--     <div id="partyList">
+    <h1>您附近的聚会</h1>
+    <ul class="list-group">
+        <a class="list-group-item" th:each="party,partyStat : ${partyList}">
+            <img class="zoomimage" th:src="${party.user.profilePicture == null?'img/potrait.png':party.user.profilePicture}"/>
+            <h4 class="list-group-item-heading" th:text="${party.partyDescription}"></h4>
+            <p class="list-group-item-text" th:text="${party.user.userName}"></p>
+        </a>
+    </ul>
+    </div>   -->
+        
+        <div id="partyList">
+        <div><h3>您附近的聚会</h3></div>
+        <div class="col-sm-4 col-md-4" th:each="party,partyStat : ${partyList}">
+        <div class="thumbnail">
+            <img th:src="${party.user.profilePicture == null?'img/potrait.png':party.user.profilePicture}"/>
+            <div class="caption">
+                <h3 th:text="${party.partyDescription}">缩略图标签</h3>
+                <p>
+                    <a href="#" class="btn btn-primary" role="button">
+                                                                          加入
+                    </a>
+                </p>
+                 <p>
+                    <a href="/editParty" th:if="${user.userName.equals(party.user.userName)}" class="btn btn-primary" role="button">
+                                                                         修改
+                    </a>
+                </p>
+                 <p>
+                    <a href="/deleteParty" th:if="${user.userName.equals(party.user.userName)}" class="btn btn-primary" role="button">
+                                                                          解散
+                    </a>
+                </p>
+            </div>
+        </div>
+        </div>
+        </div>                
+       <div id="mapContainer"></div> 
     <script src="https://webapi.amap.com/maps?v=1.4.15&key=01d5c84661f29447c9a8936857a781d4"></script>
 	<script type='text/javascript'>
      

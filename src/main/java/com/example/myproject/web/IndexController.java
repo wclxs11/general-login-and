@@ -16,7 +16,6 @@ import com.example.myproject.comm.aop.LoggerManage;
 import com.example.myproject.domain.Party;
 import com.example.myproject.domain.User;
 import com.example.myproject.repository.PartyRepository;
-import com.example.myproject.repository.UserRepository;
 
 
 //页面索引跳转控制器

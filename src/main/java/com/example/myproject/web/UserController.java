@@ -31,6 +31,7 @@ import com.example.myproject.utils.DateUtils;
 import com.example.myproject.utils.MD5Util;
 import com.example.myproject.utils.MessageUtil;
 
+
 @RestController
 @RequestMapping("/user")
 public class UserController extends BaseController {
@@ -256,6 +257,31 @@ public class UserController extends BaseController {
 		} catch (Exception e) {
 			// TODO: handle exception
 			logger.error("createParty failed, ", e);
+			return result(ExceptionMsg.FAILED);
+		}
+		return result();
+	}
+	
+	
+	/**
+	 * 删除聚会
+	 * @param
+	 * @param 
+	 * @return
+	 */
+	@RequestMapping(value = "/deleteParty", method = RequestMethod.POST)
+	@LoggerManage(description="删除聚会")
+	public Response deleteParty(Model model,Party party) {
+		try {
+			User user = getUser();
+            partyRepository.delete(party);
+            user.removeFromPartyCreatedList(party);
+            List<Party> partyList = partyRepository.findAll();
+			model.addAttribute("partyList", partyList);
+			getSession().setAttribute(Const.LOGIN_SESSION_KEY, user);
+		} catch (Exception e) {
+			// TODO: handle exception
+			logger.error("deleteParty failed, ", e);
 			return result(ExceptionMsg.FAILED);
 		}
 		return result();

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -41,18 +42,18 @@ public class User extends Entities implements Serializable{
     private String validataCode;
     @Column(nullable=true)
     private String backgroundPicture;
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL})
-    private List<Party> partyCreatedList = new ArrayList<>();
-   /* @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL})
-    private List<Party> partyCanceledList = new ArrayList<>();*/
+    @OneToMany(fetch=FetchType.EAGER,mappedBy = "user",cascade = {CascadeType.ALL})
+    private List<Party> partyCreatedList;
     public User() {
 		super();
+		this.partyCreatedList = new ArrayList<>();
 	}
 	public User(String email, String nickName, String password, String userName) {
 		super();
 		this.email = email;
 		this.password = password;
 		this.userName = userName;
+		this.partyCreatedList = new ArrayList<>();
 	}
 	public Long getId() {
 		return id;
@@ -128,6 +129,9 @@ public class User extends Entities implements Serializable{
 	}
 	public void addToPartyCreatedList(Party party){
 		partyCreatedList.add(party);
+	}
+	public void removeFromPartyCreatedList(Party party){
+		partyCreatedList.remove(party);
 	}
 	
 	/*public List<Party> getPartyCanceledList(){

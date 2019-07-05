@@ -71,3 +71,7 @@ function createParty() {
 		}
 	});
 }
+
+function deleteParty(){
+    
+}
